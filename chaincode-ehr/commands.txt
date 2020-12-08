@@ -23,6 +23,13 @@ peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"Args
 recordPatientDetails:
 {"function":"recordPatientDetails","Args":["Sadie", "20-10-1999", "M", "123456789098", "111", "Lynell", "Ln", "Cocoa", "Florida(FL)", "Developer", "IT", "xxxxx", "(321) 735-4238", "20-10-2020"]}
 
+{
+    "chain_code_name":"ehr",
+    "user_name":"john@gmail.com",
+    "func_name":"recordPatientDetails",
+    "args":["Sadie", "20-10-1999", "M", "123456789098", "111", "Lynell", "Ln", "Cocoa", "Florida(FL)", "Developer", "IT", "xxxxx", "(321) 735-4238", "20-10-2020"]
+}
+
 peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"function":"recordPatientDetails","Args":["Sadie", "20-10-1999", "M", "123456789098", "111", "Lynell", "Ln", "Cocoa", "Florida(FL)", "Developer", "IT", "xxxxx", "(321) 735-4238", "20-10-2020"]}' --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
 --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt \
 --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt \
@@ -30,6 +37,13 @@ peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"func
 -------------------------------------###############################----------------------------------------------
 recordDoctorDetails:
 {"function":"recordDoctorDetails","Args":["Annie", "20-08-1974", "F", "RN8735", "548540005000", "1106", "Cottonwood", "Rd", "Derby", "Kansas(KS)", "MBBS", "Kansas State", "MD", "Kansas State", "KNG", "3800", "Converse", "Rd", "Bennett", "Colorado(CO)", "xxxxx", "20-08-2013"]}
+
+{
+    "chain_code_name":"ehr",
+    "user_name":"ram@gmail.com",
+    "func_name":"recordDoctorDetails",
+    "args":["Annie", "20-08-1974", "F", "RN8735", "548540005000", "1106", "Cottonwood", "Rd", "Derby", "Kansas(KS)", "MBBS", "Kansas State", "MD", "Kansas State", "KNG", "3800", "Converse", "Rd", "Bennett", "Colorado(CO)", "xxxxx", "20-08-2013"]
+}
 
 peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"function":"recordDoctorDetails","Args":["Annie", "20-08-1974", "F", "RN8735", "548540005000", "1106", "Cottonwood", "Rd", "Derby", "Kansas(KS)", "MBBS", "Kansas State", "MD", "Kansas State", "KNG", "3800", "Converse", "Rd", "Bennett", "Colorado(CO)", "xxxxx", "20-08-2013"]}' --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
 --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt \
@@ -39,6 +53,13 @@ peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"func
 recordTechnicianDetails:
 {"function":"recordTechnicianDetails","Args":["Rio", "20-07-1989", "M", "PH8735", "567860005000", "406", "SE 6th St", "#APT C", "Andrews", "Texas(TX)", "MBBS", "Texas State", "MD", "Texas State", "NYC", "11820", "Edgewater", "Dr", "Lakewood", "Ohio(OH)", "XXXXX", "02-05-2002"]}
 
+{
+    "chain_code_name":"ehr",
+    "user_name":"ram@gmail.com",
+    "func_name":"recordTechnicianDetails",
+    "args":["Rio", "20-07-1989", "M", "PH8735", "567860005000", "406", "SE 6th St", "#APT C", "Andrews", "Texas(TX)", "MBBS", "Texas State", "MD", "Texas State", "NYC", "11820", "Edgewater", "Dr", "Lakewood", "Ohio(OH)", "XXXXX", "02-05-2002"]
+}
+
 peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"function":"recordTechnicianDetails","Args":["Rio", "20-07-1989", "M", "PH8735", "567860005000", "406", "SE 6th St", "#APT C", "Andrews", "Texas(TX)", "MBBS", "Texas State", "MD", "Texas State", "NYC", "11820", "Edgewater", "Dr", "Lakewood", "Ohio(OH)", "XXXXX", "02-05-2002"]}' --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
 --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt \
 --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt \
@@ -46,6 +67,14 @@ peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"func
 -------------------------------------###############################----------------------------------------------
 recordDoctorVisitationTransaction:
 {"function":"recordDoctorVisitationTransaction","Args":["001", "RN8735", "Diabetes", "Low Insulin", "HbA1c", "00001", "1605089413"]}
+
+{
+    "chain_code_name":"ehr",
+    "user_name":"ram@gmail.com",
+    "func_name":”recordDoctorVisitationTransaction”,
+    "args":["001", "RN8735", "Diabetes", "Low Insulin", "HbA1c", "00001", "1605089413"]
+}
+
 
 peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"function":"recordDoctorVisitationTransaction","Args":["001", "RN8735", "Diabetes", "Low Insulin", "HbA1c", "00001", "1605089413", "NA"]}' --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
 --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt \
@@ -55,6 +84,14 @@ peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"func
 recordTechnicianVisitationTransaction:
 {"function":"recordTechnicianVisitationTransaction","Args":["001", "PH8735", "HbA1c", "00001", "00001", "1605089765"]}
 
+{
+    "chain_code_name":"ehr",
+    "user_name":"ram@gmail.com",
+    "func_name":"recordTechnicianVisitationTransaction",
+    "args":["001", "PH8735", "HbA1c", "00001", "00001", "1605089765"]
+}
+
+
 peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"function":"recordTechnicianVisitationTransaction","Args":["001", "PH8735", "HbA1c", "00001", "00001", "1605089765", "NA"]}' --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
 --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt \
 --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt \
@@ -63,13 +100,53 @@ peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"func
 recordDoctorSummaryVisitationTransaction:
 {"function":"recordTechnicianVisitationTransaction","Args":["001", "RN8735", "Type-I Diabetes", "00001", "00001", "1605090005", "NA"]}
 
+{
+    "chain_code_name":"ehr",
+    "user_name":"ram@gmail.com",
+    "func_name":"recordDoctorSummaryVisitationTransaction",
+    "args":["001", "RN8735", "Type-I Diabetes", "00001", "00001", "1605090005", "NA"]
+}
+
 peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"function":"recordTechnicianVisitationTransaction","Args":["001", "RN8735", "Type-I Diabetes", "00001", "00001", "1605090005", "NA"]}' --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
 --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt \
 --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt \
 --peerAddresses peer0.org3.example.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
 -------------------------------------###############################----------------------------------------------
 queryTransaction:
-peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"function":"queryTransaction","Args":["001"]}' --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
+
+{
+    "chain_code_name":"ehr",
+    "user_name":"ram@gmail.com",
+    "func_name":"queryTransaction",
+    "args":["001"]
+
+}
+peer chaincode invoke -o orderer.example.com:7050 -C mychannel -n ehr -c '{"function":"queryTransaction","Args":["123456789098"]}' --tls true --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/ordererOrganizations/example.com/msp/tlscacerts/tlsca.example.com-cert.pem \
 --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt \
 --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt \
 --peerAddresses peer0.org3.example.com:11051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
+
+-------------------------------------###############################----------------------------------------------
+register-admin
+{
+    "admin_name":"ehr-admin",
+    "org_name":"org1",
+    "user_name":"admin@gmail.com",
+    "user_role":"admin",
+    "code_created_date":"xxx",
+    "secret_code":"xxx",
+    "password":"xxx"
+       
+}
+-------------------------------------###############################----------------------------------------------
+register-user
+{
+    "admin_name":"ehr-admin",
+    "user_name":"ram@gmail.com",
+    "user_role":"client",
+    "org_name":"org1",
+    "code_created_date":"23-11-2020",
+    "secret_code":"xxx",
+    "password":"xx",
+    "mobile_num":"+919550119531"
+}

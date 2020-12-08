@@ -22,7 +22,7 @@ setOrdererGlobals() {
 setGlobals() {
   ORG=$1
   if [ $ORG -eq 1 ]; then
-    CORE_PEER_LOCALMSPID="Org1MSP"
+    CORE_PEER_LOCALMSPID="org1MSP"
     CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_ORG1_CA
     CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
     CORE_PEER_ADDRESS=peer0.org1.example.com:7051

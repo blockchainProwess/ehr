@@ -91,7 +91,7 @@ type DoctorDetails struct {
 // DoctorVisitaion struct 
 type DoctorVisitaion struct {
 	InstanceID    string `json:"instance_id"`     // unix timestamp
-	License  	  string `json:"license"`
+	AadharID  	  string `json:"aadhar_id"`
 	Problem       string `json:"problem` 
 	Observations  string `json:"observations"`    // should be comma seperated
 	Tests         string `json:"tests"`
@@ -103,7 +103,7 @@ type DoctorVisitaion struct {
 // TechnicianVisitation struct
 type TechnicianVisitation struct {
 	InstanceID          string `json:"instance_id"`
-	License				string `json:"license"`
+	AadharID				string `json:"aadhar_id"`
 	Tests 				string `json:"tests"`
 	DiagnosticReports	string `json:"diagnostic_reports"`
 	BillDetails			string `json:"bill_details"`
@@ -113,7 +113,7 @@ type TechnicianVisitation struct {
 // DoctorSummaryVisitaion struct 
 type DoctorSummaryVisitaion struct {
 	InstanceID    string `json:"instance_id"`     // unix timestamp
-	License  	  string `json:"license"`
+	AadharID  	  string `json:"aadhar_id"`
 	DoctorTestObservations  string `json:"doctor_test_observations"`
 	Prescription  string `json:"prescription"`
 	BillDetails   string `json:"bill_details"`    // comma seperated Total amount, generated on, bill breakdown 
@@ -147,7 +147,11 @@ func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response 
 		return s.recordTechnicianVisitationTransaction(APIstub, args)
 	} else if function == "recordDoctorSummaryVisitationTransaction" {
 		return s.recordDoctorSummaryVisitationTransaction(APIstub, args)
-	} 	
+	} else if function == "queryTransactionHistory" {
+		return s.queryTransactionHistory(APIstub, args)
+	} else if function == "queryTransaction" {
+		return s.queryTransaction(APIstub, args)
+	}
 	 
 	return shim.Error("Invalid Smart Contract function name.")
 }
@@ -191,8 +195,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	}
 
 	patientdetailstxAsBytes, _ := json.Marshal(patientdetailstx)
-	
-	err := APIstub.PutState(args[3], patientdetailstxAsBytes)
+	err := APIstub.PutState("Pr_"+args[3], patientdetailstxAsBytes)
 	
 	if err != nil {
 		return shim.Error(fmt.Sprintf("Failed to record patient details: %s", args[3]))
@@ -239,8 +242,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 										}
 
 	doctordetailstxAsBytes, _ := json.Marshal(doctordetailstx)
-	
-	err := APIstub.PutState(args[3], doctordetailstxAsBytes)
+	err := APIstub.PutState("Pr_"+args[4], doctordetailstxAsBytes)
 	
 	if err != nil {
 		return shim.Error(fmt.Sprintf("Failed to record doctor details: %s", args[3]))
@@ -288,11 +290,10 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 										}
 
 	techniciandetailstxAsBytes, _ := json.Marshal(techniciandetailstx)
-	
-	err := APIstub.PutState(args[3], techniciandetailstxAsBytes)
+	err := APIstub.PutState("Pr_"+args[4], techniciandetailstxAsBytes)
 	
 	if err != nil {
-		return shim.Error(fmt.Sprintf("Failed to record technician details: %s", args[3]))
+		return shim.Error(fmt.Sprintf("Failed to record technician details: %s", args[4]))
 	}
 
 	return shim.Success(nil)
@@ -311,7 +312,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	
 	var dctrvsttx = DoctorVisitaion{
 											InstanceID    :args[1],
-											License  	  :args[2],
+											AadharID  	  :args[2],
 											Problem       :args[3], 
 											Observations  :args[4],
 											Tests         :args[5],
@@ -321,8 +322,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 										}
 
 	dctrvsttxAsBytes, _ := json.Marshal(dctrvsttx)
-	// key = "DIV_"+args[0]
-	err := APIstub.PutState(args[0], dctrvsttxAsBytes)
+	err := APIstub.PutState("Tx_"+args[0], dctrvsttxAsBytes)
 	
 	if err != nil {
 		return shim.Error(fmt.Sprintf("Failed to record technician details: %s", args[0]))
@@ -343,17 +343,16 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	
 	var tchnsnvsttx = TechnicianVisitation{
 											InstanceID    		:args[1],	
-											License				:args[2], 	 	
-											BillDetails 	 	:args[3],
-											Tests				:args[4],
-											DiagnosticReports 	:args[5],
+											AadharID			:args[2], 	 	
+											BillDetails 	 	:args[5],
+											Tests				:args[3],
+											DiagnosticReports 	:args[4],
 											Timestamp	  		:args[6],
 												
 										}
 
 	tchnsnvsttxAsBytes, _ := json.Marshal(tchnsnvsttx)
-	// key = "DGV_"+args[0]
-	err := APIstub.PutState(args[0], tchnsnvsttxAsBytes)
+	err := APIstub.PutState("Tx_"+args[0], tchnsnvsttxAsBytes)
 	
 	if err != nil {
 		return shim.Error(fmt.Sprintf("Failed to record technician details: %s", args[0]))
@@ -374,7 +373,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 	
 	var dctrsmryvsttx = DoctorSummaryVisitaion{
 											InstanceID    :args[1],
-											License  	  :args[2],
+											AadharID 	  :args[2],
 											DoctorTestObservations :args[3],
 											Prescription  :args[4],
 											BillDetails   :args[5],
@@ -382,8 +381,7 @@ func (s *SmartContract) initLedger(APIstub shim.ChaincodeStubInterface) sc.Respo
 											}
 
 	dctrsmryvsttxAsBytes, _ := json.Marshal(dctrsmryvsttx)
-	// key = "DSV_"+args[0]
-	err := APIstub.PutState(args[0], dctrsmryvsttxAsBytes)
+	err := APIstub.PutState("Tx_"+args[0], dctrsmryvsttxAsBytes)
 	
 	if err != nil {
 		return shim.Error(fmt.Sprintf("Failed to record technician details: %s", args[0]))
@@ -494,4 +492,5 @@ func main() {
 		fmt.Printf("Error creating new Smart Contract: %s", err)
 	}
 }
+
 
